@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>CLIA — Souscrire Pro</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" type="image/png" href="LOGONOIR.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg-dark:#000;
+      --glass: rgba(255,255,255,0.05);
+      --accent:#ffd94a;
+      --muted: rgba(255,255,255,0.85);
+      --max-width:1100px;
+      --header-height:84px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Playfair Display", serif;
+      background: var(--bg-dark);
+      color:#fff;
+      -webkit-font-smoothing:antialiased;
+    }
+    header{
+      position:fixed; left:0; right:0; top:0;
+      height:var(--header-height); display:flex; align-items:center;
+      background: linear-gradient(0deg, rgba(0,0,0,0.38), rgba(0,0,0,0.28));
+      z-index:1000; padding:0 28px;
+    }
+    .container{ width:100%; max-width:var(--max-width); margin:0 auto; display:flex; align-items:center; justify-content:space-between; }
+    .logo img{ height: 210px; width:auto; display:block; }
+    nav a{ color: rgba(255,255,255,0.92); text-decoration:none; padding:6px 10px; border-radius:8px; }
+
+    .hero{
+      padding-top:var(--header-height);
+      min-height:60vh;
+      display:flex;
+      align-items:center;
+      background: url("accueilnature.jpg") center/cover no-repeat;
+      position:relative;
+    }
+    .hero::before{ content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(0,0,0,0.55), rgba(0,0,0,0.32)); }
+
+    .panel{
+      position:relative; z-index:2; margin:0 auto; width:100%; max-width:var(--max-width);
+      padding:48px; display:grid; grid-template-columns: 1fr 360px; gap:28px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border:1px solid rgba(255,255,255,0.06); border-radius:14px; backdrop-filter: blur(6px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+    }
+
+    .left h1{ margin:0 0 8px 0; font-size:30px; color:#fff; }
+    .left p.lead{ margin:0 0 16px 0; color:var(--muted); line-height:1.45; }
+
+    .summary { background: rgba(255,255,255,0.02); padding:12px; border-radius:10px; color:rgba(255,255,255,0.92); margin-bottom:16px; }
+    .summary b{ color:var(--accent); }
+
+    .form-row{ display:flex; gap:12px; margin-bottom:12px; align-items:center; }
+    label{ font-size:14px; color:rgba(255,255,255,0.9); display:block; }
+    input[type="number"], input[type="text"], input[type="email"]{
+      width:100%; padding:10px 12px; border-radius:8px; border:1px solid rgba(255,255,255,0.06); background:rgba(255,255,255,0.02); color:#fff;
+      font-family:"Playfair Display", serif;
+    }
+
+    .calc { margin-top:10px; padding:12px; border-radius:10px; background: rgba(255,255,255,0.02); }
+    .total{ font-size:20px; font-weight:700; color:var(--accent); margin-top:8px; }
+
+    .right{ display:flex; flex-direction:column; gap:12px; }
+    .card{ background: rgba(255,255,255,0.02); padding:14px; border-radius:10px; border:1px solid rgba(255,255,255,0.04); }
+    .card h3{ margin:0 0 8px 0; font-size:18px; color:#fff; }
+    .btn{
+      display:inline-block; padding:12px 16px; border-radius:10px; text-decoration:none; font-weight:700;
+      background:linear-gradient(180deg,#fff,#f2f2f2); color:#111; border: none; cursor:pointer;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+    }
+
+    .note{ font-size:13px; color:rgba(255,255,255,0.7); margin-top:10px; }
+
+    footer{ text-align:center; padding:28px 0; color:rgba(255,255,255,0.6); }
+
+    @media (max-width:980px){
+      .panel{ grid-template-columns: 1fr; padding:28px; }
+      .right{ order:2; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <a href="clia.accueil.html" class="logo"><img src="logo.transparent.grand.png" alt="CLIA"></a>
+      <nav aria-label="Navigation"><a href="clia.accueil.html">Accueil</a> <a href="fonctionnalite.html">Fonctionnalités</a> <a href="abonnement.html">Abonnement</a> <a href="contact.html">Contact</a></nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-label="Souscrire Pro">
+      <div class="panel" role="group" aria-labelledby="pro-title">
+        <div class="left">
+          <h1 id="pro-title">Souscrire — Pro</h1>
+          <p class="lead">Formule adaptée aux entreprises avec volumes importants : IA avancée, intégrations ERP, workflows intelligents et support prioritaire.</p>
+
+          <div class="summary">
+            <div><b>Prix affiché :</b> 13 000 € / an (5 utilisateurs inclus)</div>
+            <div class="note">Supplément : 450 € / an / utilisateur additionnel.</div>
+          </div>
+
+          <form id="pro-form" action="checkout-submit.html" method="post" onsubmit="return handleSubmit(event)">
+            <input type="hidden" name="plan" value="pro">
+            <div style="display:flex; gap:12px; margin-bottom:12px;">
+              <div style="flex:1">
+                <label for="company-pro">Nom de l'entreprise</label>
+                <input id="company-pro" name="company" type="text" required placeholder="Ex : Groupe Export">
+              </div>
+              <div style="width:160px">
+                <label for="users-pro">Nombre total d'utilisateurs</label>
+                <input id="users-pro" name="users" type="number" min="1" value="5" required>
+              </div>
+            </div>
+
+            <div style="display:flex; gap:12px; margin-bottom:12px;">
+              <div style="flex:1">
+                <label for="contact-pro">Nom du contact</label>
+                <input id="contact-pro" name="contact" type="text" required placeholder="Prénom Nom">
+              </div>
+              <div style="width:220px">
+                <label for="email-pro">E-mail</label>
+                <input id="email-pro" name="email" type="email" required placeholder="contact@entreprise.com">
+              </div>
+            </div>
+
+            <div class="calc" aria-live="polite">
+              <div>Calcul du montant :</div>
+              <div id="breakdown-pro" style="margin-top:6px; color:rgba(255,255,255,0.9)">Base 13 000 € + 0 € (suppléments)</div>
+              <div class="total" id="total-pro">Total annuel estimé : 13 000 € HT</div>
+            </div>
+
+            <div style="margin-top:16px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+              <button class="btn" type="submit">Procéder au paiement</button>
+              <a class="btn" href="contact.html" style="background:transparent;color:var(--muted);box-shadow:none;border:1px solid rgba(255,255,255,0.06)">Demander un devis / Info</a>
+            </div>
+            <div style="margin-top:10px; color:rgba(255,255,255,0.75)">Montant estimé hors taxes (HT).</div>
+          </form>
+        </div>
+
+        <aside class="right" aria-label="Info Pro">
+          <div class="card">
+            <h3>Inclus</h3>
+            <p>Tout Starter + IA avancée, automatisation complète des dossiers export, intégrations ERP et workflows inter-départements.</p>
+          </div>
+
+          <div class="card">
+            <h3>Exemple</h3>
+            <p>10 utilisateurs : 13 000 € + (5 × 450 €) = 15 250 €</p>
+          </div>
+
+          <div class="card">
+            <h3>Besoin d'intégration ?</h3>
+            <p>Nous proposons un onboarding dédié et des options d'intégration API. Contactez notre équipe pour un plan personnalisé.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <footer><p>© 2025 CLIA — Tous droits réservés.</p></footer>
+  </main>
+
+  <script>
+    // Pricing logic for Pro
+    const usersPro = document.getElementById('users-pro');
+    const breakdownPro = document.getElementById('breakdown-pro');
+    const totalPro = document.getElementById('total-pro');
+
+    function updatePro(){
+      const base = 13000;
+      const included = 5;
+      const per = 450;
+      let users = parseInt(usersPro.value || 0, 10);
+      if (users < 1) users = 1;
+      const extra = Math.max(0, users - included);
+      const extraCost = extra * per;
+      const total = base + extraCost;
+      breakdownPro.textContent = `Base ${base.toLocaleString('fr-FR')} € + ${extraCost.toLocaleString('fr-FR')} € (suppléments ${extra}×${per} €)`;
+      totalPro.textContent = `Total annuel estimé : ${total.toLocaleString('fr-FR')} € HT`;
+    }
+    usersPro.addEventListener('input', updatePro);
+    updatePro();
+
+    function handleSubmit(e){
+      e.preventDefault();
+      const company = document.getElementById('company-pro').value;
+      const contact = document.getElementById('contact-pro').value;
+      alert(`Merci ${contact} — votre demande de souscription Pro pour "${company}" a été enregistrée. Vous serez redirigé(e) vers la page de paiement.`);
+      return false;
+    }
+  </script>
+</body>
+</html>

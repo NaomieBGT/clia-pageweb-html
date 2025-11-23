@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>CLIA - Accueil</title>
+  <link rel="icon" type="image/png" href="LOGOONOIR.png"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root{
+      --bg:#000;
+      --max-width:1200px;
+      --header-height:84px; /* header raisonnable, pas agrandir la "bannière" */
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body {
+      margin: 0;
+      /* corps en Playfair display pour la lisibilité, titres en Playfair (défini plus bas) */
+      font-family: "Playfair display", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background-color: var(--bg);
+      color: #fff;
+    }
+
+    /* Header */
+    header{
+      position:fixed;
+      left:0; right:0; top:0;
+      height:var(--header-height);
+      z-index:1000;
+      background: linear-gradient(0deg, rgba(0,0,0,0.35), rgba(0,0,0,0.35));
+      backdrop-filter: blur(6px);
+      display:flex;
+      align-items:center;
+    }
+    .container{
+      width:100%;
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding:0 28px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+
+    /* logo : taille plus grande sans changer la hauteur du header */
+    .logo {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      /* petit fond translucide pour aider la lisibilité si le logo est clair/sombre */
+      background: rgba(255,255,255,0.03);
+      padding:6px 10px;
+      border-radius:8px;
+    }
+    /* Ajuste la hauteur du logo pour qu'il soit bien lisible, mais < header-height */
+    .logo img{
+      height:210px;      /* rendu grand mais reste dans le header (header 84px) */
+      width:auto;
+      display:block;
+      max-width: 100%;
+      /* donne un léger relief pour bien le distinguer du fond */
+      filter: drop-shadow(0 6px 14px rgba(0,0,0,0.6));
+    }
+
+    /* navigation (inchangé visuellement) */
+    nav{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      margin-bottom:2px;
+      font-family: "Playfair Display", serif; /* nav en Playfair pour cohérence de marque */
+    }
+    nav a{
+      color: rgba(255,255,255,0.88);
+      text-decoration:none;
+      font-weight:500;
+      font-size:15px;
+      padding:6px 10px;
+      border-radius:8px;
+    }
+
+    /* Hero : inchangé (on garde la même proportion) */
+    .hero{
+      padding-top: var(--header-height);
+      min-height: calc(100vh - var(--header-height));
+      display:flex;
+      align-items:center;
+      background: url("nycclia.jpg") center/cover no-repeat;
+      position:relative;
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.55) 10%, rgba(0,0,0,0.35) 60%, rgba(0,0,0,0.25) 100%);
+      pointer-events:none;
+    }
+
+    .hero-inner{
+      position:relative;
+      z-index:2;
+      width:100%;
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding: 80px 28px;
+      display:flex;
+      align-items:flex-start;
+    }
+
+    /* Titres en Playfair Display pour plus de caractère et meilleure lisibilité */
+    h1, h2, h3 {
+      font-family: "Playfair Display", serif;
+      margin:0;
+    }
+
+    .content { max-width:720px; }
+    .content h1{
+      margin:0 0 14px 0;
+      font-size:52px;               /* agrandi pour être bien lisible */
+      line-height:1.02;
+      font-weight:600;
+      color:#fff;
+      letter-spacing:-0.4px;
+    }
+    .content p{ margin:0 0 22px 0; color: rgba(255,255,255,0.92); font-size:17px; }
+
+    .btn {
+      display:inline-block;
+      padding:10px 18px;
+      border-radius:999px;
+      background: rgba(255,255,255,0.85);
+      color:#111;
+      text-decoration:none;
+      font-weight:600;
+      font-size:15px;
+    }
+
+    footer{ text-align:center; padding:28px 20px; background: #0b0b0b; color: rgba(255,255,255,0.65); }
+
+    /* responsive : conserve logo grand sur desktop mais réduit proprement */
+    @media (max-width:1100px){
+      .logo img{ height:60px; } /* tablette */
+      .content h1{ font-size:40px; }
+    }
+    @media (max-width:720px){
+      .logo img{ height:48px; } /* mobile */
+      nav{ display:none; }
+      .content h1{ font-size:26px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="logo">
+        <!-- Utiliser une version haute définition / SVG pour une meilleure lisibilité -->
+        <a href="clia.accueil.html" aria-label="Accueil CLIA">
+          <img src="logo.transparent.grand.png" alt="Logo CLIA">
+        </a>
+      </div>
+
+      <nav>
+        <a href="clia.accueil.html">Accueil</a>
+        <a href="fonctionnalite.html">Fonctionnalités</a>
+        <a href="abonnement.html">Abonnement</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" role="region" aria-label="Présentation">
+    <div class="hero-inner">
+      <div class="content">
+        <h1>CLIA : L'agent IA qui sécurise votre trésorerie et vos documents logistiques.</h1>
+        <p>Analyse avancée des crédits documentaires, identification automatique des anomalies, optimisation des processus et réduction des risques : tout cela en un seul outil intuitif et sécurisé.</p>
+        <a class="btn" href="fonctionnalite.html" title="En savoir plus sur CLIA">En savoir plus</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 CLIA. Tous droits réservés.
+  </footer>
+</body>
+</html>

@@ -1,0 +1,399 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>CLIA — Abonnements</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" type="image/png" href="LOGONOIR.png" />
+  <!-- Playfair Display pour tout le contenu -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg-dark: #000;
+      --glass: rgba(255,255,255,0.06);
+      --glass-strong: rgba(255,255,255,0.9);
+      --accent: #ffd94a;
+      --muted: rgba(255,255,255,0.75);
+      --card-bg: rgba(255,255,255,0.04);
+      --max-width:1200px;
+      --header-height:84px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Playfair Display", serif; /* TOUT en Playfair Display */
+      background: var(--bg-dark);
+      color:#fff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* Header : même direction artistique que la page d'accueil */
+    header{
+      position:fixed;
+      left:0; right:0; top:0;
+      height:var(--header-height);
+      z-index:1000;
+      background: linear-gradient(0deg, rgba(0,0,0,0.38), rgba(0,0,0,0.28));
+      backdrop-filter: blur(6px);
+      display:flex;
+      align-items:center;
+    }
+    .container{
+      width:100%;
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding:0 28px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .logo img{ height:210px; width:auto; display:block; filter: drop-shadow(0 6px 18px rgba(0,0,0,0.6)); }
+
+    nav{ display:flex; gap:18px; align-items:center; }
+    nav a{
+      color: rgba(255,255,255,0.92);
+      text-decoration:none;
+      font-size:15px;
+      padding:6px 10px;
+      border-radius:8px;
+    }
+    nav a:hover{ background: rgba(255,255,255,0.03); }
+
+    /* Hero (même bannière que la page d'accueil) */
+    .hero{
+      padding-top: var(--header-height);
+      min-height: 42vh;
+      display:flex;
+      align-items:center;
+      background: url("accueilnature.jpg") center/cover no-repeat;
+      position:relative;
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.55) 10%, rgba(0,0,0,0.30) 60%);
+      pointer-events:none;
+    }
+
+    /* Le panneau principal en glass (brillant, transparent) */
+    .hero-inner{
+      position:relative;
+      z-index:2;
+      width:100%;
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding: 56px 28px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .glass {
+      width:100%;
+      max-width:1100px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius:14px;
+      padding:26px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+      backdrop-filter: blur(8px);
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:28px;
+      align-items:start;
+    }
+
+    /* Left: pitch + pricing table */
+    .left h2{
+      margin:0 0 8px 0;
+      font-size:28px;
+      color:#fff;
+      letter-spacing:-0.3px;
+    }
+    .left p.lead{
+      margin:0 0 18px 0;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.45;
+    }
+    .summary {
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-bottom:18px;
+    }
+    .pill{
+      background: rgba(255,255,255,0.06);
+      color:#fff;
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:13px;
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
+    /* Pricing cards */
+    .plans{
+      display:flex;
+      gap:14px;
+      margin-top:10px;
+      flex-wrap:wrap;
+    }
+    .plan{
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.06);
+      padding:16px;
+      border-radius:12px;
+      min-width:220px;
+      flex:1;
+    }
+    .plan .title{
+      font-size:16px;
+      font-weight:600;
+      color:#fff;
+      margin-bottom:8px;
+    }
+    .plan .price{
+      font-size:20px;
+      font-weight:700;
+      color:var(--accent);
+      margin-bottom:10px;
+    }
+    .plan ul{
+      margin:0 0 12px 0;
+      padding:0 0 0 18px;
+      color:rgba(255,255,255,0.92);
+    }
+    .plan li{ margin-bottom:8px; font-size:14px; color:rgba(255,255,255,0.95); }
+
+    .plan .cta{
+      display:inline-block;
+      margin-top:8px;
+      padding:10px 14px;
+      border-radius:999px;
+      background: linear-gradient(180deg,#fff,#f2f2f2);
+      color:#111;
+      text-decoration:none;
+      font-weight:600;
+      border: 1px solid rgba(0,0,0,0.06);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+    }
+
+    /* Right: license / addons / CTA large */
+    .right{
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius:12px;
+      padding:16px;
+    }
+    .card h3{ margin:0 0 8px 0; font-size:18px; color:#fff; }
+    .card p{ margin:0; color:var(--muted); font-size:14px; line-height:1.5; }
+
+    .big-cta{
+      display:flex;
+      gap:12px;
+      margin-top:6px;
+      align-items:center;
+      justify-content:flex-start;
+      flex-wrap:wrap;
+    }
+    .btn-primary{
+      background: var(--accent);
+      color:#111;
+      padding:12px 18px;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:700;
+      border: none;
+      box-shadow: 0 12px 30px rgba(255,217,74,0.12);
+    }
+    .btn-secondary{
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.06);
+      color:var(--muted);
+      padding:10px 14px;
+      border-radius:10px;
+      text-decoration:none;
+    }
+
+    /* Details pricing table (below hero) */
+    .details{
+      max-width:var(--max-width);
+      margin:30px auto;
+      padding:0 28px 80px 28px;
+    }
+    .table{
+      width:100%;
+      border-collapse:collapse;
+      background:#fff;
+      color:#111;
+      border-radius:12px;
+      overflow:hidden;
+      box-shadow: 0 14px 60px rgba(2,6,23,0.08);
+    }
+    .table thead th{
+      text-align:left;
+      padding:16px;
+      background:#fafafa;
+      font-weight:700;
+      font-size:15px;
+      font-family:"Playfair Display", serif;
+    }
+    .table tbody td{ padding:14px 16px; border-top:1px solid #f2f2f2; font-size:15px; }
+    .muted-dark{ color:#6b6b6b; font-size:14px; }
+
+    /* Footer small */
+    .note{
+      max-width:var(--max-width);
+      margin:0 auto 60px auto;
+      padding:0 28px;
+      color: #dcdcdc;
+      font-size:14px;
+    }
+
+    /* Responsive */
+    @media (max-width:980px){
+      .glass{ grid-template-columns: 1fr; }
+      .plans{ flex-direction:column; }
+      .hero-inner{ padding:36px 18px; }
+    }
+    @media (max-width:520px){
+      .logo img{ height:52px; }
+      .left h2{ font-size:22px; }
+      .page-title h1{ font-size:20px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <a class="logo" href="clia.accueil.html"><img src="logo.transparent.grand.png" alt="Logo CLIA"></a>
+      <nav aria-label="Navigation principale">
+        <a href="clia.accueil.html">Accueil</a>
+        <a href="fonctionnalite.html">Fonctionnalités</a>
+        <a href="abonnement.html" style="opacity:0.95;">Abonnement</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" aria-label="Bannière Abonnements">
+    <div class="hero-inner">
+      <div class="glass" role="region" aria-labelledby="abonnement-title">
+        <!-- LEFT -->
+        <div class="left">
+          <h2 id="abonnement-title">Abonnements CLIA Choisissez selon vos besoins</h2>
+          <p class="lead">CLIA protège votre trésorerie et sécurise vos documents logistiques. Trois formules claires, une logique de valeur : licence + abonnement + formation/intégration selon vos besoins. Transparent, sécurisé et immédiatement opérationnel.</p>
+
+          <div class="summary" aria-hidden="false">
+            <div class="pill">Licence unitaire : 4 900 € HT</div>
+            <div class="pill">Abonnement annuel (SaaS) : 2 000 € HT</div>
+            <div class="pill">Formation / intégration : 500 € HT</div>
+          </div>
+
+          <div class="plans" aria-hidden="false">
+            <div class="plan" aria-label="Starter">
+              <div class="title">Starter</div>
+              <div class="price">7 400 € / an</div>
+              <ul>
+                <li>Licence CLIA + Abonnement SaaS</li>
+                <li>Formation obligatoire incluse</li>
+                <li>Export automatique & vérification documentaire basique</li>
+                <li>2 utilisateurs inclus</li>
+                <li>+300 € / an / utilisateur additionnel</li>
+              </ul>
+              <a class="cta" href="checkout-starter.html" aria-label="Souscrire Starter">Souscrire</a>
+            </div>
+
+            <div class="plan" aria-label="Pro">
+              <div class="title">Pro</div>
+              <div class="price">13 000 € / an</div>
+              <ul>
+                <li>Tout Starter</li>
+                <li>IA avancée : lecture automatique, prédiction d'erreurs</li>
+                <li>Automatisation complète & workflows intelligents</li>
+                <li>Intégrations ERP (SAP, Odoo, Netsuite...)</li>
+                <li>5 utilisateurs inclus</li>
+                <li>+450 € / an / utilisateur additionnel</li>
+              </ul>
+              <a class="cta" href="checkout-pro.html" aria-label="Souscrire Pro">Souscrire</a>
+            </div>
+
+            <div class="plan" aria-label="Enterprise">
+              <div class="title">Enterprise</div>
+              <div class="price">25 000 € / an</div>
+              <ul>
+                <li>Tout Pro</li>
+                <li>Gestion multi-filiales / multi-pays</li>
+                <li>Audit & conformité, API illimitée</li>
+                <li>Support 24/7 & SLA</li>
+                <li>10 utilisateurs inclus</li>
+                <li>+600 € / an / utilisateur additionnel</li>
+              </ul>
+              <a class="cta" href="contact-devis-entreprise.html" aria-label="Souscrire Enterprise">Contact & devis</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <aside class="right" aria-label="Informations complémentaires">
+          <div class="card" aria-hidden="false">
+            <h3>Pourquoi ce pricing ?</h3>
+            <p>Notre tarification reflète la valeur économique : réduction d'erreurs, conformité renforcée et gains opérationnels. Les formules sont calibrées pour être attractives pour les PME (Starter) tout en offrant des capacités avancées pour les grands comptes (Pro / Enterprise).</p>
+          </div>
+
+          <div class="card" aria-hidden="false">
+            <h3>Exemples</h3>
+            <p class="muted-dark">Starter — 3 utilisateurs : 7 400 € + 300 € = 7 700 €<br>
+            Pro — 10 utilisateurs : 13 000 € + (5 × 450 €) = 15 250 €<br>
+            Enterprise — 30 utilisateurs : 25 000 € + (20 × 600 €) = 37 000 €</p>
+          </div>
+
+          <div class="card" aria-hidden="false">
+            <h3>Besoin d'aide ?</h3>
+            <p class="muted-dark">Pour intégration spécifique, API ou SLA contractuel, contactez-nous pour un devis personnalisé et un onboarding adapté.</p>
+            <div class="big-cta">
+              <a class="btn-primary" href="checkout.html">Demander un devis</a>
+              <a class="btn-secondary" href="contact.html">Contact</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Détails complémentaires plus bas -->
+  <section class="details" aria-label="Détails des tarifs et politique d'accès">
+    <table class="table" role="table" aria-labelledby="tarif-title">
+      <thead>
+        <tr><th id="tarif-title">Tarifs & politique d'accès</th><th>Montant / Note</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Prix unitaire de la licence</strong></td><td>4 900 € HT — valeur directe générée (réduction d'erreurs, conformité)</td></tr>
+        <tr><td><strong>Abonnement SaaS</strong></td><td>2 000 € HT / an — mises à jour, IA continue, support</td></tr>
+        <tr><td><strong>Formation / intégration</strong></td><td>500 € HT (unitaire) — facilite l'adoption et réduit les freins</td></tr>
+        <tr><td><strong>Offre Starter</strong></td><td>7 400 € / an — 2 utilisateurs inclus. À partir du 3ᵉ : +300 € / an / utilisateur</td></tr>
+        <tr><td><strong>Offre Pro</strong></td><td>13 000 € / an — 5 utilisateurs inclus. Suppl. : +450 € / an / utilisateur</td></tr>
+        <tr><td><strong>Offre Enterprise</strong></td><td>25 000 € / an — 10 utilisateurs inclus. Suppl. : +600 € / an / utilisateur</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="note" aria-hidden="false">
+    <p>Notes : Tous les montants sont indiqués hors taxes (HT). Les offres peuvent être adaptées selon l'échelle, les intégrations ERP souhaitées et les exigences réglementaires. Pour une démonstration ou un essai piloté, contactez notre équipe ou demandez un devis via le bouton ci‑dessus.</p>
+  </div>
+
+  <footer style="padding:28px 0; text-align:center; color:rgba(255,255,255,0.65);">
+    © 2025 CLIA. Tous droits réservés.
+  </footer>
+</body>
+</html>
