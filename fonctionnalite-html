@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>CLIA — Fonctionnalités</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" type="image/png" href="LOGOONOIR.png"/>
+  <!-- Import Playfair Display uniquement (tout le texte utilisera Playfair) -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg-white: #ffffff;
+      --text:#111;
+      --muted:#6b6b6b;
+      --accent:#0b7bff;
+      --max-width:1200px;
+      --header-height:84px;
+    }
+
+    /* Reset */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      /* TOUT le texte en Playfair Display comme demandé */
+      font-family: "Playfair Display", serif;
+      background: var(--bg-white);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* Header (keep same visual language as the homepage) */
+    header{
+      position:fixed;
+      left:0;right:0;top:0;
+      height:var(--header-height);
+      z-index:1000;
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.547), rgba(0,0,0,0.35));
+      backdrop-filter: blur(6px);
+      display:flex;
+      align-items:center;
+    }
+    .container{
+      width:100%;
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding:0 28px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+    }
+    /* Logo size unchanged from your provided code */
+    .logo img{ height:210px; width:auto; display:block; filter: drop-shadow(0 6px 14px rgba(0,0,0,0.15)); }
+
+    /* Nav inherits Playfair Display from body */
+    nav{ display:flex; gap:18px; align-items:center; font-family:inherit; }
+    nav a{ color: #fff; text-decoration:none; font-weight:500; font-size:15px; padding:6px 10px; border-radius:8px; }
+
+    /* Page content */
+    main{
+      padding-top: calc(var(--header-height) + 36px); /* leave space for fixed header */
+      padding-bottom:60px;
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding-left:28px;
+      padding-right:28px;
+    }
+
+    .page-title{
+      display:flex;
+      align-items:flex-end;
+      gap:16px;
+      margin-bottom:28px;
+    }
+    .page-title h1{
+      font-family:"Playfair Display", serif;
+      font-size:36px;
+      margin:0;
+      color:var(--text);
+      letter-spacing:-0.3px;
+      line-height:1.06;
+    }
+    .page-title p.lead{
+      margin:0;
+      color:var(--muted);
+      font-size:15px;
+      font-weight:500;
+    }
+
+    /* Two-column layout: left main (video + text), right visuals */
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap:36px;
+      align-items:start;
+    }
+
+    /* Video card */
+    .video-card{
+      background: #fafafa;
+      border-radius:12px;
+      padding:12px;
+      box-shadow: 0 6px 30px rgba(12,12,12,0.04);
+      border: 1px solid rgba(0,0,0,0.04);
+    }
+    video{
+      width:100%;
+      height:auto;
+      border-radius:10px;
+      display:block;
+      background:#000;
+    }
+    .video-caption{
+      margin-top:10px;
+      font-size:14px;
+      color:var(--muted);
+    }
+
+    /* Description */
+    .desc{
+      margin-top:20px;
+      font-size:16px;
+      color:var(--text);
+      line-height:1.6;
+    }
+    .features{
+      margin-top:18px;
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:12px 18px;
+    }
+    .feature{
+      background:#fff;
+      border-radius:10px;
+      padding:12px;
+      border: 1px solid rgba(0,0,0,0.04);
+      box-shadow: 0 6px 18px rgba(12,12,12,0.03);
+      font-size:14px;
+      color:var(--muted);
+    }
+    .feature strong{ color:var(--text); display:block; margin-bottom:6px; font-size:15px; }
+
+    /* Right column visuals */
+    .aside{
+      position:relative;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+    .card{
+      background:#fff;
+      border-radius:12px;
+      padding:14px;
+      box-shadow: 0 8px 30px rgba(12,12,12,0.06);
+      border: 1px solid rgba(0,0,0,0.04);
+      text-align:center;
+    }
+    .card img{ max-width:100%; height:auto; display:block; margin:0 auto; border-radius:8px; }
+    .card h4{ margin:12px 0 6px 0; font-family:"Playfair Display", serif; font-size:16px; color:var(--text); }
+    .card p{ margin:0; color:var(--muted); font-size:14px; }
+
+    /* Small helper */
+    .muted{ color:var(--muted); font-size:14px; }
+
+    footer{
+      margin-top:48px;
+      text-align:center;
+      color:#6b6b6b;
+      font-size:14px;
+      padding-top:20px;
+    }
+
+    /* Responsive */
+    @media (max-width:980px){
+      .grid{ grid-template-columns: 1fr 300px; gap:20px; }
+    }
+    @media (max-width:820px){
+      .grid{ grid-template-columns: 1fr; }
+      .aside{ order:2; }
+      .video-card{ order:1; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <a class="logo" href="clia.accueil.html"><img src="logo.transparent.grand.png" alt="Logo CLIA"></a>
+      <nav>
+        <a href="clia.accueil.html">Accueil</a>
+        <a href="fonctionnalite.html" style="opacity:0.95;">Fonctionnalités</a>
+        <a href="abonnement.html">Abonnement</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="page-title">
+      <div>
+        <h1>Fonctionnalités principales</h1>
+        <p class="lead">Découvrez en 1 minute comment CLIA protège votre trésorerie et simplifie vos documents logistiques.</p>
+      </div>
+    </div>
+
+    <section class="grid" aria-labelledby="features-heading">
+      <div>
+        <div class="video-card" aria-hidden="false">
+          <!-- Video: nommé cliavideo.mp4 -->
+          <!-- poster attribute can be added if you provide a poster image -->
+          <video controls playsinline preload="metadata" title="Vidéo de présentation CLIA — 1 minute">
+            <source src="cliavideof.mp4" type="video/mp4">
+            Votre navigateur ne supporte pas la balise video.
+          </video>
+          <div class="video-caption">Vidéo de démonstration : 1 minute</div>
+        </div>
+
+        <article class="desc" id="features-heading">
+          <p><strong>CLIA</strong> est un agent d'intelligence artificielle dédié à la sécurisation des transactions documentaires et à la gestion proactive des risques financiers. Conçu pour les équipes logistiques et financières, CLIA analyse automatiquement les documents, détecte les anomalies et propose des recommandations exploitables.</p>
+
+          <div class="features" aria-hidden="false">
+            <div class="feature">
+              <strong>Analyse documentaire</strong>
+              Lecture automatique des crédits documentaires et extraction des clauses clés.
+            </div>
+            <div class="feature">
+              <strong>Détection d'anomalies</strong>
+              Repérage des incohérences, erreurs et comportements suspects en temps réel.
+            </div>
+            <div class="feature">
+              <strong>Recommandations</strong>
+              Suggestions opérationnelles pour corriger et sécuriser les flux.
+            </div>
+            <div class="feature">
+              <strong>Suivi & reporting</strong>
+              Rapports synthétiques et historique des interventions pour audit.
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <aside class="aside" aria-label="Visuels CLIA">
+        <div class="card" role="figure" aria-label="Bot CLIA">
+          <img src="mascottebot.png" alt="Bot CLIA — mascotte">
+          <h4>L'agent CLIA</h4>
+          <p> Voici CLIA, l’agent IA qui veille silencieusement sur vos flux, incarnée par une figure féminine aux yeux clos, 
+symbole de précision, de sérénité et de vigilance.</p>
+        </div>
+
+        <div class="card" role="figure" aria-label="Conversation CLIA">
+          <img src="conversation.png" alt="Conversation exemple avec CLIA">
+          <h4>Exemple de chat</h4>
+          <p>Extrait d'une réponse générée par CLIA (montrée aussi dans la vidéo).</p>
+        </div>
+      </aside>
+    </section>
+
+    <footer>
+      © 2025 CLIA — Simple, sécurisé et prêt pour l'entreprise.
+    </footer>
+  </main>
+</body>
+</html>
