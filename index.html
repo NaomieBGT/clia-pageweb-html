@@ -2,20 +2,50 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
-  <title>CLIA — Page d'accueil</title>
+  <title>CLIA — Accueil</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <!-- redirection vers ta page d'accueil existante -->
-  <meta http-equiv="refresh" content="0; url=clia.accueil.html">
   <style>
-    body{font-family:Arial,Helvetica,sans-serif;background:#0b0b0b;color:#fff;display:flex;align-items:center;justify-content:center;height:100vh;margin:0}
-    .msg{max-width:720px;padding:20px;border-radius:10px;background:rgba(255,255,255,0.03);text-align:center;border:1px solid rgba(255,255,255,0.05)}
-    a{color:#ffd94a}
+    body{margin:0;font-family:Playfair Display,serif;background:#0b0b0b;color:#fff}
+    header{padding:18px 24px;display:flex;align-items:center;justify-content:space-between;max-width:1100px;margin:0 auto}
+    .logo{display:flex;align-items:center;gap:12px}
+    .logo img{height:48px}
+    nav a{color:rgba(255,255,255,0.9);text-decoration:none;margin-left:12px;font-size:15px}
+    main{max-width:1100px;margin:20px auto;padding:24px;background:rgba(255,255,255,0.02);border-radius:12px}
+    h1{margin-top:0}
+    .cards{display:flex;gap:14px;flex-wrap:wrap}
+    .card{background:#0f0f10;padding:14px;border-radius:10px;min-width:220px}
+    .card a{color:#ffd94a;text-decoration:none;font-weight:600}
+    footer{text-align:center;color:rgba(255,255,255,0.6);padding:24px}
   </style>
 </head>
 <body>
-  <div class="msg">
-    <h1>Redirection...</h1>
-    <p>Si la redirection automatique ne fonctionne pas, <a href="clia.accueil.html">clique ici pour ouvrir la page d'accueil</a>.</p>
-  </div>
+  <header>
+    <div class="logo">
+      <a href="index.html" aria-label="Accueil"><img src="logo.transparent.grand.png" alt="Logo CLIA"></a>
+      <strong>CLIA</strong>
+    </div>
+    <nav aria-label="Navigation">
+      <a href="clia.accueil.html">Accueil</a>
+      <a href="fonctionnalite.html">Fonctionnalités</a>
+      <a href="abonnement.html">Abonnement</a>
+      <a href="contact-devis-enterprise.html">Contact / Devis</a>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Bienvenue — CLIA</h1>
+    <p>Page centrale : utilisez la navigation pour accéder aux pages « Fonctionnalités », « Abonnement » et « Contact / Devis ». Si une page ne s'ouvre pas, vérifiez que son fichier porte bien l'extension <code>.html</code>.</p>
+
+    <div class="cards">
+      <div class="card"><h3>Fonctionnalités</h3><p>Découvrir les fonctionnalités principales de CLIA.</p><a href="fonctionnalite.html">Voir</a></div>
+      <div class="card"><h3>Abonnements</h3><p>Comparer les formules Starter / Pro / Enterprise.</p><a href="abonnement.html">Voir</a></div>
+      <div class="card"><h3>Devis Enterprise</h3><p>Formulaire de demande de devis pour grands comptes.</p><a href="contact-devis-enterprise.html">Demander</a></div>
+      <div class="card"><h3>Souscrire / Payer</h3><p>Accéder aux pages de paiement Starter / Pro.</p><a href="checkout-starter.html">Starter</a> · <a href="checkout-pro.html">Pro</a></div>
+    </div>
+  </main>
+
+  <footer>
+    © 2025 CLIA — Naomie
+  </footer>
 </body>
 </html>
