@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>CLIA — Devis Enterprise & Contact</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="icon" type="image/png" href="LOGONOIR.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#060608;
+      --overlay: rgba(0,0,0,0.36);
+      --card-bg: rgba(255,255,255,0.06);
+      --panel-bg: rgba(0,0,0,0.65);
+      --muted: rgba(255,255,255,0.85);
+      --muted-2: rgba(255,255,255,0.72);
+      --accent: #ffd94a;
+      --glass-border: rgba(255,255,255,0.07);
+      --max-width:1100px;
+      --header-height:84px;
+      --gap:18px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:"Playfair Display", serif;
+      background: var(--bg);
+      color: #fff;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+    }
+
+    /* Header */
+    header{
+      position:fixed;
+      left:0; right:0; top:0;
+      height:var(--header-height);
+      z-index:1002;
+      display:flex;
+      align-items:center;
+      background: linear-gradient(180deg, rgba(0,0,0,0.36), rgba(0,0,0,0.12));
+      backdrop-filter: blur(4px);
+      padding:0 20px;
+    }
+    .container{
+      width:100%;
+      max-width:var(--max-width);
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:var(--gap);
+    }
+    .logo img{ height:210px; width:auto; display:block; } /* réduit pour ne pas empiéter */
+
+    nav{ display:flex; gap:14px; align-items:center; }
+    nav a{
+      color: var(--muted);
+      text-decoration:none;
+      padding:6px 10px;
+      border-radius:8px;
+      font-size:15px;
+    }
+    nav a:hover{ background: rgba(255,255,255,0.03); color:#fff; }
+
+    /* Hero : plus léger et plus petit pour que le contenu principal soit visible */
+    .hero{
+      padding-top: var(--header-height);
+      min-height:18vh;            /* réduit pour remonter le contenu */
+      display:flex;
+      align-items:flex-end;
+      background:  rgba(0,0,0,0.36);
+      position:relative;
+    }
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.36), rgba(0,0,0,0.22));
+      z-index:0;
+    }
+
+    /* Main wrapper */
+    main{
+      position:relative;
+      z-index:1000;
+      max-width:var(--max-width);
+      margin:0 auto;
+      padding:0 20px 64px;
+    }
+
+    /* Card pulled up to overlap hero and sit higher on the page */
+    .card {
+      margin: -92px auto 20px; /* remontée importante (évite que le formulaire soit trop bas) */
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border:1px solid var(--glass-border);
+      border-radius:14px;
+      padding:22px;
+      box-shadow: 0 20px 70px rgba(0,0,0,0.65);
+      overflow:hidden;
+      display:grid;
+      grid-template-columns: 1fr 360px;
+      gap:24px;
+      align-items:start;
+    }
+
+    /* Headline + intro */
+    .card h1{
+      margin:0 0 8px 0;
+      font-size:26px;
+      color:#fff;
+      letter-spacing:-0.2px;
+      text-shadow: 0 6px 18px rgba(0,0,0,0.6); /* subtle lift for legibility */
+    }
+    .card p.lead{
+      margin:0 0 14px 0;
+      color:var(--muted-2);
+      font-size:15px;
+      max-width:70ch;
+    }
+
+    /* Form */
+    form{ display:block; width:100%; }
+    fieldset{ border:0; padding:0; margin:0; }
+
+    label{
+      display:block;
+      font-size:14px;
+      color:var(--muted);
+      margin-bottom:6px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    select,
+    textarea{
+      width:100%;
+      padding:10px 12px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.02);
+      color:#fff;
+      font-family:inherit;
+      font-size:15px;
+      margin-bottom:12px;
+    }
+    textarea{ min-height:110px; resize:vertical; }
+
+    .row{ display:flex; gap:12px; }
+    .row > div{ flex:1; }
+
+    /* Buttons */
+    .actions{ display:flex; gap:12px; align-items:center; margin-top:6px; flex-wrap:wrap; }
+    .btn{
+      display:inline-block;
+      padding:11px 16px;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:700;
+      background: linear-gradient(180deg,#fff,#f2f2f2);
+      color:#111;
+      border: none;
+      cursor:pointer;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+    }
+    .btn.ghost{
+      background: transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.06);
+      box-shadow:none;
+    }
+
+    /* Aside: darker box with contacts */
+    .info{
+      background: rgba(0,0,0,0.72); /* darker to improve contrast */
+      border-radius:12px;
+      padding:18px;
+      border:1px solid rgba(255,255,255,0.04);
+      color:var(--muted);
+      display:flex;
+      flex-direction:column;
+      gap:14px;
+    }
+
+    .info h3{ margin:0 0 6px 0; color:#fff; font-size:18px; }
+    .info p{ margin:0; color:var(--muted-2); font-size:14px; line-height:1.4; }
+
+    /* Team block inside aside: black/transparent cards */
+    .team{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+      margin-top:8px;
+    }
+    .member{
+      background: rgba(0,0,0,0.8);
+      border-radius:8px;
+      padding:12px;
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    .member h4{ margin:0 0 6px 0; font-size:14px; color:#fff; }
+    .member p{ margin:0; font-size:13px; color:var(--muted-2); line-height:1.3; }
+
+    .help{
+      margin-top:10px;
+      font-size:13px;
+      color:var(--muted-2);
+    }
+
+    /* Small responsive adjustments */
+    @media (max-width:980px){
+      .card{ grid-template-columns: 1fr; margin:-60px 12px 20px; padding:18px; }
+      .team{ grid-template-columns:1fr 1fr; }
+      .info{ padding:14px; }
+    }
+    @media (max-width:720px){
+      header{ padding:0 12px; }
+      .container{ padding:0 6px; }
+      .logo img{ height:48px; }
+      .card{ gap:14px; margin:-40px 10px 20px; }
+      .team{ grid-template-columns:1fr; }
+    }
+
+    /* Focus styles for accessibility */
+    input:focus, select:focus, textarea:focus, button:focus {
+      outline: 2px solid rgba(255,217,74,0.35);
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <a class="logo" href="clia.accueil.html" aria-label="Accueil CLIA"><img src="logo.transparent.grand.png" alt="CLIA logo"></a>
+      <nav aria-label="Navigation principale">
+        <a href="clia.accueil.html">Accueil</a>
+        <a href="fonctionnalite.html">Fonctionnalités</a>
+        <a href="abonnement.html">Abonnement</a>
+        <a href="contact.html" aria-current="page" style="color:#fff">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-hidden="true">
+      <div style="height:28vh"></div>
+    </section>
+
+    <section class="card" aria-labelledby="devis-title">
+      <div>
+        <h1 id="devis-title">Demande de devis — Offre Enterprise</h1>
+        <p class="lead">L'offre Enterprise s'adresse aux groupes multi‑filiales, banques et grands exportateurs : SLA, API illimitée, audit & conformité et onboarding sur site. Complétez le formulaire ci‑dessous pour recevoir un devis personnalisé et un accompagnement sur‑mesure.</p>
+
+        <form id="devis-form" action="submit-devis.html" method="post" onsubmit="return handleSubmit(event)" novalidate>
+          <fieldset>
+            <label for="company">Nom de l'entreprise</label>
+            <input id="company" name="company" type="text" placeholder="Nom de la société" required>
+
+            <label for="country">Pays / Siège</label>
+            <input id="country" name="country" type="text" placeholder="France" required>
+
+            <div class="row">
+              <div>
+                <label for="contact-name">Nom du contact</label>
+                <input id="contact-name" name="contact_name" type="text" placeholder="Prénom Nom" required>
+              </div>
+              <div style="min-width:160px">
+                <label for="phone">Téléphone</label>
+                <input id="phone" name="phone" type="tel" placeholder="+33 6 00 00 00 00">
+              </div>
+            </div>
+
+            <label for="email">E-mail</label>
+            <input id="email" name="email" type="email" placeholder="contact@entreprise.com" required>
+
+            <label for="users">Nombre estimé d'utilisateurs</label>
+            <input id="users" name="users" type="number" min="1" value="10">
+
+            <label for="requirements">Exigences & intégrations souhaitées</label>
+            <select id="requirements" name="requirements">
+              <option value="">— Choisir / préciser —</option>
+              <option value="erp">Intégration ERP (SAP / Odoo / Netsuite)</option>
+              <option value="api">API & intégration continue</option>
+              <option value="sla">SLA 24/7</option>
+              <option value="onboarding">Onboarding sur site</option>
+              <option value="other">Autre (préciser ci-dessous)</option>
+            </select>
+
+            <label for="message">Message / Contexte (optionnel)</label>
+            <textarea id="message" name="message" placeholder="Décrivez votre besoin, contraintes, date souhaitée de déploiement..."></textarea>
+
+            <div class="actions">
+              <button class="btn" type="submit" aria-label="Demander un devis">Demander un devis</button>
+              <a class="btn ghost" href="abonnement.html" aria-label="Retour aux offres">Retour aux offres</a>
+            </div>
+          </fieldset>
+        </form>
+
+        <p class="help">Nous répondons généralement sous 48h ouvrées. Si votre besoin est urgent, inscrivez "URGENT" en objet ou écrivez à <a href="mailto:contact@clia-tech.com" style="color:var(--accent);text-decoration:none">contact@clia-tech.com</a>.</p>
+      </div>
+
+      <aside class="info" aria-label="Récapitulatif entreprise">
+        <h3>Ce que comprend l'offre Enterprise</h3>
+        <p>Gestion multi‑filiales, audit & conformité, API illimitée, support 24/7, options d'onboarding sur site. La tarification est personnalisée selon le périmètre, le volume, et les SLA souhaités.</p>
+
+        <div class="team" role="list">
+          <div class="member" role="listitem">
+            <h4>Naomie BAGATE</h4>
+            <p>Fondatrice & CTO<br><a href="mailto:naomie.bagate@clia-tech.com" style="color:var(--muted-2); text-decoration:none">naomie.bagate@clia-tech.com</a></p>
+          </div>
+
+          <div class="member" role="listitem">
+            <h4>Cerena MICHAUD</h4>
+            <p>Communication & partenariats<br><a href="mailto:cerena.michaud@clia-tech.com" style="color:var(--muted-2); text-decoration:none">cerena.michaud@clia-tech.com</a></p>
+          </div>
+
+          <div class="member" role="listitem">
+            <h4>Nathalie ONEISSI</h4>
+            <p>Directrice Financière<br><a href="mailto:nathalie.oneissi@clia-tech.com" style="color:var(--muted-2); text-decoration:none">nathalie.oneissi@clia-tech.com</a></p>
+          </div>
+
+          <div class="member" role="listitem">
+            <h4>Seating SYLLA</h4>
+            <p>Directrice Logistique<br><a href="mailto:seating.sylla@clia-tech.com" style="color:var(--muted-2); text-decoration:none">seating.sylla@clia-tech.com</a></p>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <footer style="text-align:center; color:rgba(255,255,255,0.6); margin-top:18px;">© 2025 CLIA — Tous droits réservés.</footer>
+  </main>
+
+  <script>
+    // Basic client behavior: validation + confirmation
+    function handleSubmit(e){
+      e.preventDefault();
+      const form = e.target;
+      const required = ['company','contact-name','email'];
+      for(const id of required){
+        const el = document.getElementById(id);
+        if(!el || !el.value.trim()){
+          el.focus();
+          alert('Merci de remplir le champ : ' + (el ? el.previousElementSibling.textContent : id));
+          return false;
+        }
+      }
+
+      const company = document.getElementById('company').value.trim();
+      const contact = document.getElementById('contact-name').value.trim();
+      const email = document.getElementById('email').value.trim();
+
+      // Demo behavior: show confirmation and clear form
+      alert(`Demande reçue — Merci ${contact} (${company}). Nous vous contacterons à ${email} sous 48h ouvrées.`);
+      form.reset();
+      return false;
+    }
+  </script>
+</body>
+</html>
